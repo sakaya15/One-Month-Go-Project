@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1ヶ月囲碁プロジェクト | 圧倒的成長を約束する個人指導</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #c9b037 0%, #f4d03f 50%, #d4af37 100%);
+            --secondary-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            --dark-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d30 100%);
+            --luxury-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --accent-color: #d4af37;
+            --accent-secondary: #c9b037;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-luxury: #2d3748;
+            --surface: #ffffff;
+            --surface-alt: #fafafa;
+            --surface-luxury: #f8f9fa;
+            --border-light: rgba(255, 255, 255, 0.15);
+            --border-luxury: rgba(212, 175, 55, 0.2);
+            --shadow-luxury: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans JP', serif;
+            line-height: 1.6;
+            color: var(--text-luxury);
+            overflow-x: hidden;
+            font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+            background: var(--surface-luxury);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border-luxury);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-luxury);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--dark-gradient);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 90px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(201, 176, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(244, 208, 63, 0.1) 0%, transparent 50%);
+            animation: luxury-gradient-shift 25s ease-in-out infinite;
+        }
+
+        @keyframes luxury-gradient-shift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f4d03f 30%, #d4af37 70%, #ffffff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-weight: 400;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-pattern {
+            width: 500px;
+            height: 500px;
+            background: 
+                radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%),
+                conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-pattern::before {
+            content: '';
+            position: absolute;
+            inset: 50px;
+            background: var(--dark-gradient);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--primary-gradient);
+            color: #1a1a1a;
+            padding: 1.25rem 2.5rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cta-primary:hover::before {
+            left: 100%;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Contact Form Section */
+        .contact-section {
+            padding: 150px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d30 50%, #1a1a1a 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(244, 208, 63, 0.06) 0%, transparent 50%);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-info {
+            padding: 3rem 0;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .contact-info p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .contact-features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-feature {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .contact-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .contact-feature-text h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-feature-text p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .contact-form-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.02em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .form-submit {
+            background: var(--primary-gradient);
+            color: #1a1a1a;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
+            letter-spacing: 0.02em;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.4);
+        }
+
+        .form-note {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-align: center;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Instructor Section */
+        .instructor-section {
+            padding: 120px 0;
+            background: var(--surface);
+            position: relative;
+        }
+
+        .instructor-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .instructor-image-container {
+            position: relative;
+        }
+
+        .instructor-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #9ca3af;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructor-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 24px;
+            background: url('https://drive.google.com/uc?export=view&id=1T9PAx8S8VrZjJz5NdMf4xOdDPF0sXQ3i') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #9ca3af;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructor-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .instructor-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .instructor-title {
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .instructor-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .instructor-achievements {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--surface-alt);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .achievement-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        /* Stats Section Enhanced */
+        .stats-section {
+            background: var(--surface-alt);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.02) 50%, transparent 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Results Section Enhanced */
+        .results-section {
+            padding: 120px 0;
+            background: var(--surface);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .result-card {
+            background: var(--surface);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .result-card:hover::before {
+            opacity: 1;
+        }
+
+        .result-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2);
+            color: white;
+        }
+
+        .result-card:hover .result-number,
+        .result-card:hover .result-text {
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .result-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .result-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 2;
+        }
+
+        .result-highlight {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            color: #f59e0b;
+        }
+
+        /* Testimonials Section Enhanced */
+        .testimonials-section {
+            background: var(--dark-gradient);
+            padding: 120px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .quote-mark {
+            font-size: 3rem;
+            opacity: 0.3;
+            line-height: 1;
+            color: var(--accent-color);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin: 1.5rem 0;
+            opacity: 0.9;
+        }
+
+        /* Features Section Enhanced */
+        .features-section {
+            padding: 120px 0;
+            background: var(--surface-alt);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: var(--primary-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* CTA Section Enhanced */
+        .cta-section {
+            background: var(--dark-gradient);
+            padding: 120px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Footer Enhanced */
+        .footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .instructor-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .instructor-image {
+                height: 400px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .instructor-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .instructor-achievements {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form-container {
+                padding: 2rem;
+            }
+            
+            .contact-info h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Enhanced animations and interactions */
+        .luxury-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .feature-card,
+        .result-card,
+        .testimonial-card,
+        .stat-card {
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card:hover,
+        .result-card:hover,
+        .testimonial-card:hover,
+        .stat-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        /* Form validation styles */
+        .form-group input:invalid:not(:placeholder-shown),
+        .form-group textarea:invalid:not(:placeholder-shown) {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-group input:valid,
+        .form-group textarea:valid {
+            border-color: var(--accent-color);
+        }
+
+        /* Result text styling with colors */
+        .result-arrow {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 0 0.5rem;
+        }
+
+        .rank-before {
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .rank-after {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .rank-final {
+            color: #10b981;
+            font-weight: 700;
+        }
+        
+        /* Smooth animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 120px 0;
+            background: var(--surface);
+            position: relative;
+        }
+
+        .pricing-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.02) 50%, transparent 100%);
+        }
+
+        .pricing-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d30 100%);
+            color: white;
+            padding: 4rem 3rem;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(244, 208, 63, 0.08) 0%, transparent 50%);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-gradient);
+            color: #1a1a1a;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .pricing-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .pricing-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .pricing-currency {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .pricing-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .pricing-period {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .pricing-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .pricing-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+            text-align: left;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .pricing-feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .pricing-feature-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .pricing-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        .pricing-cta {
+            margin-top: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">1ヶ月囲碁プロジェクト</div>
+            <ul class="nav-links">
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#instructor">講師紹介</a></li>
+                <li><a href="#results">実績</a></li>
+                <li><a href="#features">特徴</a></li>
+                <li><a href="#testimonials">感想</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">✨ 限定募集中</div>
+                    <h1>1ヶ月で<br>圧倒的成長を<br>実現する</h1>
+                    <p class="subtitle">
+                        Sakayaによる完全個別サポートで、あなたの棋力を短期間で劇的に向上させます。本の指定・棋譜添削・質問対応など、目標達成まで全力でサポート。
+                    </p>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="hero-stat-number">88%</div>
+                            <div class="hero-stat-label">成功率</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-number">10級</div>
+                            <div class="hero-stat-label">最大上達幅</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-number">24時間</div>
+                            <div class="hero-stat-label">サポート体制</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <a href="#contact" class="cta-primary">
+                            今すぐ参加申し込み
+                            <span style="font-size: 1.2rem;">→</span>
+                        </a>
+                        <a href="#instructor" class="cta-secondary">
+                            講師について詳しく
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                     <div class="hero-pattern"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructor Section -->
+    <section class="instructor-section" id="instructor">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">講師紹介</div>
+                <h2 class="section-title">Sakayaについて</h2>
+                <p class="section-subtitle">豊富な指導経験と確実な成果で、あなたの上達をサポートします</p>
+            </div>
+            
+            <div class="instructor-grid">
+                <div class="instructor-image-container">
+                    <div class="instructor-image">
+                    </div>
+                    <div class="instructor-badge">プロ講師</div>
+                </div>
+                
+                <div class="instructor-content">
+                    <h2>Sakaya</h2>
+                    <div class="instructor-title">囲碁指導のスペシャリスト</div>
+                    
+                    <p class="instructor-description">
+                        多年にわたる囲碁指導経験を持つプロフェッショナル講師。個々の生徒さんのレベルと目標に合わせたオーダーメイドの指導方針で、短期間での確実な上達を実現します。これまで数多くの生徒さんを指導し、1ヶ月という短期間で驚異的な成果を上げ続けています。
+                    </p>
+                    
+                    <div class="instructor-achievements">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🏆</div>
+                            <div>
+                                <strong>指導実績</strong><br>
+                                3歳〜80代まで1000人以上指導
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">📈</div>
+                            <div>
+                                <strong>成功率</strong><br>
+                                88%の生徒が目標達成
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">⚡</div>
+                            <div>
+                                <strong>最大上達幅</strong><br>
+                                1ヶ月で10級アップ
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">💯</div>
+                            <div>
+                                <strong>満足度</strong><br>
+                                生徒満足度100%
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="instructor-description">
+                        「生徒さん一人ひとりに向き合い、その人に最適な学習方法を見つけ出すこと」を信念として、個別サポートに全力で取り組んでいます。即時の棋譜添削、24時間質問対応、そして何より生徒さんの主体性を育てることで、プロジェクト終了後も継続的な成長を実現します。」
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">圧倒的な実績</div>
+                <h2 class="section-title">数字で見る成果</h2>
+                <p class="section-subtitle">これまでの1ヶ月囲碁プロジェクトで達成した驚異的な結果</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">最大上達幅（1ヶ月）</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">88%</div>
+                    <div class="stat-label">成功率</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">生徒満足度</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section" id="results">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">成長実績</div>
+                <h2 class="section-title">驚異的な成長記録</h2>
+                <p class="section-subtitle">参加者の皆様が1ヶ月で達成した具体的な成果をご覧ください</p>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-card fade-in">
+                    <div class="result-text">
+                        野狐<span class="rank-before">15級</span><span class="result-arrow">→</span> 野狐<span class="rank-after">11級</span>
+                        <div class="result-highlight">4級アップ達成！</div>
+                    </div>
+                </div>
+                <div class="result-card fade-in">
+                    <div class="result-text">
+                        野狐<span class="rank-before">6級</span> <span class="result-arrow">→</span> 野狐<span class="rank-after">1級</span>
+                        <div class="result-highlight">5級アップ達成！</div>
+                    </div>
+                </div>
+                <div class="result-card fade-in">
+                    <div class="result-text">
+                        野狐<span class="rank-before">13級</span> <span class="result-arrow">→</span> 野狐<span class="rank-after">9級</span>
+                        <div class="result-highlight">4級アップ達成！</div>
+                    </div>
+                </div>
+                <div class="result-card fade-in">
+                    <div class="result-text">
+                        野狐<span class="rank-before">五段</span> <span class="result-arrow">→</span> 野狐<span class="rank-after">六段</span>
+                        <div class="result-highlight">さらに1ヶ月後七段！</div>
+                    </div>
+                </div>
+                <div class="result-card fade-in">
+                    <div class="result-text">
+                        野狐<span class="rank-before">六段</span> <span class="result-arrow">→</span>野狐<span class="rank-after">七段</span>
+                        <div class="result-highlight">1段アップ達成！</div>
+                    </div>
+                </div>
+                <div class="result-card fade-in">
+                    <div class="result-text">
+                        野狐<span class="rank-before">7級</span> <span class="result-arrow">→</span> 野狐<span class="rank-after">四段</span>
+                        <div class="result-highlight">驚異の10級アップ！</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">プロジェクトの特徴</div>
+                <h2 class="section-title">なぜ短期間でこれほどの成長が可能なのか</h2>
+                <p class="section-subtitle">独自の指導メソッドと徹底したサポート体制の秘密</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">最適な学習プラン設計</h3>
+                    <p class="feature-description">あなたのレベルと目標に合わせて、Sakayaが最適な本を指定し、効率的な学習プランを提供。無駄のない最短ルートで上達を目指します。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">即時棋譜添削システム</h3>
+                    <p class="feature-description">対局直後に詳細な棋譜添削を受けられるため、改善点をすぐに確認し、次の対局に活かせます。記憶が鮮明なうちに学習効果を最大化。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">24時間質問サポート</h3>
+                    <p class="feature-description">学習中の疑問点や理解できない部分について、いつでも質問でき、迅速な回答を受けられます。つまずきを即座に解決し、学習の流れを止めません。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">個別弱点分析</h3>
+                    <p class="feature-description">レベルに応じたポイントを絞った指導で、あなたの弱みを明確化し、効果的な改善策を提案。的確な課題設定で効率的な上達を実現。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">成長マインドセット構築</h3>
+                    <p class="feature-description">主体性を重視した指導により、プロジェクト終了後も自主的に学習を続ける習慣が身につきます。一生涯の囲碁上達の基盤を作ります。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">思考プロセス改善</h3>
+                    <p class="feature-description">悪手の原因となる思考の癖を認識し、正しい思考プロセスを身につけることができます。根本的な棋力向上を目指します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+<section class="pricing-section" id="pricing">
+   <div class="container">
+       <div class="section-header">
+           <div class="section-badge">プログラム費用</div>
+           <h2 class="section-title">投資価値のある完全個別指導</h2>
+           <p class="section-subtitle">1ヶ月間の集中サポートで、あなたの囲碁人生を変える投資</p>
+       </div>
+       
+       <div class="pricing-container">
+           <div class="pricing-card">
+               <div class="pricing-badge">限定募集</div>
+               <div class="pricing-content">
+                   <h3 class="pricing-title">1ヶ月囲碁プロジェクト</h3>
+                   <p class="pricing-subtitle">Sakayaによる完全個別指導プログラム</p>
+                   
+                   <div class="pricing-price">
+                       <span class="pricing-currency">¥</span>
+                       <span class="pricing-amount">220,000</span>
+                       <span class="pricing-period">/ 1ヶ月</span>
+                   </div>
+                   
+                   <p class="pricing-description">
+                       88%の成功率を誇る、圧倒的成果にコミットした最高品質の個別指導サービス
+                   </p>
+                   
+                   <div class="pricing-features">
+                       <div class="pricing-feature">
+                           <div class="pricing-feature-icon">✓</div>
+                           <span class="pricing-feature-text">個別学習プラン設計</span>
+                       </div>
+                       <div class="pricing-feature">
+                           <div class="pricing-feature-icon">✓</div>
+                           <span class="pricing-feature-text">即時棋譜添削</span>
+                       </div>
+                       <div class="pricing-feature">
+                           <div class="pricing-feature-icon">✓</div>
+                           <span class="pricing-feature-text">24時間質問サポート</span>
+                       </div>
+                       <div class="pricing-feature">
+                           <div class="pricing-feature-icon">✓</div>
+                           <span class="pricing-feature-text">弱点分析・改善指導</span>
+                       </div>
+                       <div class="pricing-feature">
+                           <div class="pricing-feature-icon">✓</div>
+                           <span class="pricing-feature-text">思考プロセス矯正</span>
+                       </div>
+                       <div class="pricing-feature">
+                           <div class="pricing-feature-icon">✓</div>
+                           <span class="pricing-feature-text">継続学習メソッド指導</span>
+                       </div>
+                   </div>
+                   
+                   <div class="pricing-cta">
+                       <a href="#contact" class="cta-primary">
+                           今すぐお問い合わせ
+                           <span style="font-size: 1.2rem;">→</span>
+                       </a>
+                   </div>
+                   
+                   <p class="pricing-note">
+                       ※ 本気で上達したい方のみご参加ください<br>
+                       ※ 事前カウンセリングにて最適性を確認いたします
+                   </p>
+               </div>
+           </div>
+       </div>
+   </div>
+</section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">参加者の声</div>
+                <h2 class="section-title">実際に参加された方々のリアルな感想</h2>
+                <p class="section-subtitle">生の声から分かる1ヶ月囲碁プロジェクトの価値</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">対局直後に棋譜添削を送ってもらえる事が多いので、改善点をすぐに確認することができて良かった。記憶が新鮮なうちに学べるのが最大のメリットです。</p>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">対局に関することだけでなく、本の内容で理解できない事についても、質問するとすぐに返信をくれて助かった。疑問を持ち越さずに済みました。</p>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">改善点を指摘するだけではなく、良かった点も教えてくれる。悪手を打ってしまった時の思考プロセスも認識させてもらえて、考え方の悪いクセが分かりました。</p>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">レベルに応じてポイント絞って棋譜添削だったから、自分の弱みがよく分かって、終了後にも繋がった。的確な指導で効率よく上達できました。</p>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">主体性がメインだから、プロジェクト終わっても、自分でやる癖が付く。一生涯使える学習スキルが身についたと思います。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>お問い合わせ</h2>
+                    <p>
+                        1ヶ月囲碁プロジェクトへの参加をご希望の方、詳細についてご質問がある方は、以下のフォームからお気軽にお問い合わせください。あなたの囲碁への情熱と目標をお聞かせください。
+                    </p>
+                    
+                    <div class="contact-features">
+                        <div class="contact-feature">
+                            <div class="contact-feature-icon">⚡</div>
+                            <div class="contact-feature-text">
+                                <h4>迅速な対応</h4>
+                                <p>24時間以内にご返信いたします</p>
+                            </div>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="contact-feature-icon">🎯</div>
+                            <div class="contact-feature-text">
+                                <h4>個別カウンセリング</h4>
+                                <p>あなたに最適なプランをご提案</p>
+                            </div>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="contact-feature-icon">🔒</div>
+                            <div class="contact-feature-text">
+                                <h4>完全秘匿性</h4>
+                                <p>お客様の情報は厳重に管理いたします</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lastName">お名前（姓）*</label>
+                                <input type="text" id="lastName" name="lastName" required placeholder="田中">
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">お名前（名）*</label>
+                                <input type="text" id="firstName" name="firstName" required placeholder="太郎">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">メールアドレス*</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentLevel">現在の棋力</label>
+                                <select id="currentLevel" name="currentLevel">
+                                    <option value="">選択してください</option>
+                                    <option value="beginner">初心者</option>
+                                    <option value="20-15kyu">20級～15級</option>
+                                    <option value="14-10kyu">14級～10級</option>
+                                    <option value="9-5kyu">9級～5級</option>
+                                    <option value="4-1kyu">4級～1級</option>
+                                    <option value="1-3dan">初段～三段</option>
+                                    <option value="4dan-up">四段以上</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="targetLevel">目標棋力</label>
+                                <select id="targetLevel" name="targetLevel">
+                                    <option value="">選択してください</option>
+                                    <option value="20-15kyu">20級～15級</option>
+                                    <option value="14-10kyu">14級～10級</option>
+                                    <option value="9-5kyu">9級～5級</option>
+                                    <option value="4-1kyu">4級～1級</option>
+                                    <option value="1-3dan">初段～三段</option>
+                                    <option value="4-6dan">四段～六段</option>
+                                    <option value="7dan-up">七段以上</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">囲碁歴・学習経験</label>
+                            <textarea id="experience" name="experience" placeholder="これまでの囲碁学習経験、使用している囲碁サイト、読んだことのある囲碁本などをお聞かせください。"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="motivation">参加動機・目標</label>
+                            <textarea id="motivation" name="motivation" placeholder="1ヶ月囲碁プロジェクトに参加したい理由、達成したい目標、囲碁への想いなどをお聞かせください。" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timeCommitment">1日の学習可能時間</label>
+                            <select id="timeCommitment" name="timeCommitment">
+                                <option value="">選択してください</option>
+                                <option value="30min">30分程度</option>
+                                <option value="1hour">1時間程度</option>
+                                <option value="2hours">2時間程度</option>
+                                <option value="3hours">3時間程度</option>
+                                <option value="4hours-up">4時間以上</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="questions">ご質問・ご要望</label>
+                            <textarea id="questions" name="questions" placeholder="プロジェクトについてのご質問、特別なご要望などがございましたらお聞かせください。"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">お問い合わせを送信</button>
+                        
+                        <p class="form-note">
+                            * 必須項目<br>
+                            お送りいただいた情報を元に、最適なプランをご提案させていただきます。
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>あなたも1ヶ月で圧倒的成長を体験しませんか？</h2>
+                <p>次のプロジェクトメンバーを限定募集中です。<br>本気で棋力を向上させたい方のご応募をお待ちしております。</p>
+                <a href="#contact" class="cta-primary">
+                    今すぐお問い合わせ
+                    <span style="font-size: 1.2rem;">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 1ヶ月囲碁プロジェクト by Sakaya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const startTime = performance.now();
+            
+            function updateCounter(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(progress * target);
+                element.textContent = current + (element.textContent.includes('%') ? '%' : '');
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                }
+            }
+            
+            requestAnimationFrame(updateCounter);
+        }
+
+        // Trigger counter animations when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        const number = parseInt(text.replace(/[^0-9]/g, ''));
+                        if (number) {
+                            animateCounter(stat, number);
+                        }
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
